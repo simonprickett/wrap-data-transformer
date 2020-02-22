@@ -1,13 +1,12 @@
 const fs = require('fs')
 
 if (process.argv.length !== 5) {
-  console.error('usage: npm run transform <inputfile> <outputfile>')
+  console.error('usage: npm run transform <inputfile> <outputfolder>')
 }
 
 const inputFile = require(process.argv[3])
-const outputFile = process.argv[4]
+const outputFolder = process.argv[4]
 
-console.log(`writing -> ${outputFile}`)
 inputFile.city = inputFile.spatial.split('Greater').join('').split(', UK').join('').trim()
 inputFile.age = inputFile.title.split(',')[1].split('-')[0].trim()
 inputFile.name = inputFile.title.split('with')[1].split(',')[0].trim()
@@ -28,4 +27,6 @@ for (let n = 0; n < inputFile.texts.length; n++) {
   }
 }
 
+const outputFile = `${outputFolder}/${inputFile.name.toLowerCase()}.json`
+console.log(`writing -> ${outputFile}`)
 fs.writeFileSync(outputFile, JSON.stringify(inputFile, null, 4), 'utf-8')
