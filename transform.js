@@ -21,6 +21,10 @@ for (let n = 0; n < inputFile.texts.length; n++) {
       } else {
         if (piece.startsWith('INTERVIEWER: ') || piece.startsWith('INTERVIEWEE: ')) {
           inputFile.texts[n].data[m].pieces[o] = piece.substring(13).trim()
+        } else {
+          if (piece.startsWith('Q: ') || piece.startsWith('A: ')) {
+            inputFile.texts[n].data[m].pieces[o] = piece.substring(3).trim()
+          }
         }
       }
     }
